@@ -27,5 +27,5 @@ RUN install2.r --error \
     tseries \
     tsModel \
     ## from devtookls
-    && R -e "devtools::install_github("prestevez/victim")" \
-    && R -e "devtools::install_github("prestevez/crimeineq")"
+    && R -e "devtools::install_github(‘prestevez/victim’)" \
+    && R -e "devtools::install_github(‘prestevez/crimeineq’)"
