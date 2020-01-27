@@ -30,4 +30,4 @@ RUN install2.r --error \
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
-    && R -e "install.packages('glmmADMB', repos=c('http://glmmadmb.r-forge.r-project.org/repos', getOption('repos')), type='source'))"
+    && R -e "install.packages('glmmADMB', repos=c('http://glmmadmb.r-forge.r-project.org/repos', getOption('repos')), type='source')"
