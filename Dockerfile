@@ -26,8 +26,8 @@ RUN install2.r --error \
     texreg \
     tseries \
     tsModel \
-    R2admb
-    ## from devtookls
+    R2admb \
+    ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
     && R -e "install.packages('glmmADMB', repos=c('http://glmmadmb.r-forge.r-project.org/repos', getOption('repos')), type='source'))"
