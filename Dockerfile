@@ -10,7 +10,7 @@ RUN install2.r --error \
     coin \
     dgof \
     gganimate \
-    #ggradar \
+    pbapply \
     ggridges \
     ggthemes \
     glmmTMB \
