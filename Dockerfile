@@ -37,3 +37,5 @@ RUN install2.r --error \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
     && R -e "install.packages('glmmADMB', repos=c('http://glmmadmb.r-forge.r-project.org/repos', getOption('repos')), type='source')" \
     && R -e "install.packages('countreg', repos='http://R-Forge.R-project.org')"
+
+RUN echo "setwd('local/')" >> ~/.Rprofile
