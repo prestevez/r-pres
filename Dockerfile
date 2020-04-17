@@ -39,3 +39,6 @@ RUN install2.r --error \
     && R -e "install.packages('countreg', repos='http://R-Forge.R-project.org')"
 
 RUN echo "setwd('local/')" >> ~/.Rprofile
+
+RUN echo "setwd('local/')" >> /usr/local/lib/R/etc/Rprofile.site
+
