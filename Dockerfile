@@ -38,4 +38,4 @@ RUN install2.r --error \
     && R -e "install.packages('glmmADMB', repos=c('http://glmmadmb.r-forge.r-project.org/repos', getOption('repos')), type='source')" \
     && R -e "install.packages('countreg', repos='http://R-Forge.R-project.org')"
 
-RUN echo "setwd('~/local/')" >> /usr/local/lib/R/etc/Rprofile.site
+# RUN echo "setwd('~/local/')" >> /usr/local/lib/R/etc/Rprofile.site
