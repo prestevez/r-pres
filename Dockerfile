@@ -33,6 +33,7 @@ RUN install2.r --error \
     httr \
     jsonlite \
     pglm \
+    microsynth \
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
