@@ -34,6 +34,7 @@ RUN install2.r --error \
     jsonlite \
     pglm \
     microsynth \
+    metafor \
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
