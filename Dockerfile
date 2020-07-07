@@ -35,6 +35,8 @@ RUN install2.r --error \
     pglm \
     microsynth \
     metafor \
+    forecast \
+    fable \
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
