@@ -37,6 +37,7 @@ RUN install2.r --error \
     metafor \
     forecast \
     fable \
+    feasts \
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
