@@ -46,4 +46,4 @@ RUN install2.r --error \
     && R -e "devtools::install_github('leifeld/texreg')" 
 
 RUN echo "Europe/London" > /etc/timezone
-#RUN dpkg-reconfigure -f noninteractive tzdata
+RUN dpkg-reconfigure -f noninteractive tzdata
