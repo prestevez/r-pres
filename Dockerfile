@@ -39,6 +39,7 @@ RUN install2.r --error \
     fable \
     feasts \
     future.apply \
+    hexbin \
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
