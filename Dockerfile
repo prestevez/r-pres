@@ -42,6 +42,7 @@ RUN install2.r --error \
     hexbin \
     cowplot \
     furrr \
+    ggsn \
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
