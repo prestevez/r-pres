@@ -41,6 +41,7 @@ RUN install2.r --error \
     future.apply \
     hexbin \
     cowplot \
+    furrr \
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
