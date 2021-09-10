@@ -1,0 +1,79 @@
+## CI build for personal R docker image
+version: 2.1
+executors:
+  docker-publisher:
+    environment:
+      IMAGE_NAME: prestevez/r-pres
+    docker:
+      - image: cimg/base:stable
+        auth:
+            username: $DOCKERHUB_USER
+            password: $DOCKERHUB_PWD
+jobs:
+  build:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t $IMAGE_NAME:latest .
+      - run:
+          name: Archive Docker image
+          command: docker save -o image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
+  publish-latest:
+    executor: docker-publisher
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - setup_remote_docker
+      - run:
+          name: Load archived Docker image
+          command: docker load -i /tmp/workspace/image.tar
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PWD" | docker login -u "$DOCKERHUB_USER" --password-stdin
+            docker push $IMAGE_NAME:latest
+workflows:
+  version: 2
+  build-master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+          context:
+              - authentication
+      - publish-latest:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+          context:
+            - authentication
+  weekly:
+      triggers:
+          - schedule:
+              cron: 0 3 * * 1
+      jobs:
+        - build:
+            filters:
+              branches:
+                only: master
+            context:
+                - authentication
+        - publish-latest:
+            requires:
+              - build
+            filters:
+              branches:
+                only: master
+            context:
+              - authentication
