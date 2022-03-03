@@ -45,6 +45,8 @@ RUN install2.r --error -s \
     ggsn \
     WebPower \
     PASSED \
+    MatchIt \
+    randomizr \ 
     ## from devtools and r-forge
     && R -e "devtools::install_github('prestevez/victim')" \
     && R -e "devtools::install_github('prestevez/crimeineq')" \
