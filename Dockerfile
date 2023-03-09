@@ -47,6 +47,7 @@ RUN install2.r --error -s \
     PASSED \
     MatchIt \
     randomizr \ 
+    PanelMatch \
     ## For VScode
     languageserver \
     httpgd \ 
