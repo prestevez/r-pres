@@ -10,73 +10,45 @@ executors:
             username: $DOCKERHUB_USER
             password: $DOCKERHUB_PWD
 jobs:
-  build:
+  build-and-push:
     executor: docker-publisher
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.11
       - run:
-          name: Build Docker image
+          name: Login to DockerHub
+          command: echo "$DOCKERHUB_PWD" | docker login -u "$DOCKERHUB_USER" --password-stdin
+      - run:
+          name: Build and push using buildx
           command: |
-            docker build -t $IMAGE_NAME:latest .
-      - run:
-          name: Archive Docker image
-          command: docker save -o image.tar $IMAGE_NAME
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./image.tar
-  publish-latest:
-    executor: docker-publisher
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - setup_remote_docker
-      - run:
-          name: Load archived Docker image
-          command: docker load -i /tmp/workspace/image.tar
-      - run:
-          name: Publish Docker Image to Docker Hub
-          command: |
-            echo "$DOCKERHUB_PWD" | docker login -u "$DOCKERHUB_USER" --password-stdin
-            docker push $IMAGE_NAME:latest
+            source VERSION
+            TAG=$VMAJOR.$VMINOR.${CIRCLE_SHA1:0:7}
+            docker buildx build . \
+              -t $IMAGE_NAME:$TAG \
+              -t $IMAGE_NAME:latest \
+              --push
 workflows:
   version: 2
   build-master:
     jobs:
-      - build:
+      - build-and-push:
           filters:
             branches:
               only: master
           context:
               - authentication
-      - publish-latest:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
-          context:
-            - authentication
-  weekly:
-      triggers:
-          - schedule:
-              cron: 0 3 * * 1
-              filters:
-                branches:
-                  only: master
-      jobs:
-        - build:
-            filters:
-              branches:
-                only: master
-            context:
-                - authentication
-        - publish-latest:
-            requires:
-              - build
-            filters:
-              branches:
-                only: master
-            context:
-              - authentication
+#  weekly:
+#      triggers:
+#          - schedule:
+#              cron: 0 3 * * 1
+#              filters:
+#                branches:
+#                  only: master
+#      jobs:
+#        - build-and-push:
+#            filters:
+#              branches:
+#                only: master
+#            context:
+#                - authentication

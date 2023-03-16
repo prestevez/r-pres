@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# environment variables
+VMAJOR=1
+VMINOR=0
